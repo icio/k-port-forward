@@ -88,14 +88,14 @@ func readURLs(r io.Reader, u chan<- string) error {
 		if p == -1 {
 			continue
 		}
-		u <- "http://" + l[16:p]
+		u <- l[16:p]
 	}
 	return s.Err()
 }
 
 // httpHealthCheck returns any error received attempting to connect to the given URL.
 func httpHealthCheck(c *http.Client, u string) error {
-	r, err := http.NewRequest(http.MethodGet, u, nil)
+	r, err := http.NewRequest(http.MethodGet, "http://"+u, nil)
 	if err != nil {
 		return err
 	}
